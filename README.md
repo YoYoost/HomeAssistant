@@ -18,7 +18,7 @@ example
 ## Manage Home Assistant service:
 
 ```
-    service home-assistant@homeassistant stop
-    service home-assistant@homeassistant start
+service home-assistant@homeassistant stop
+service home-assistant@homeassistant start
 ```
 
