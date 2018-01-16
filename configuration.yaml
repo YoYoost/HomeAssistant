@@ -1,0 +1,115 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret lat_location
+  longitude: !secret lon_location
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret ele_location
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone_location
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+   api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+   base_url: !secret baseurl
+  # cors_allowed_origins:
+  #  - !secret baseurl
+  # use_x_forwarded_for: True
+   trusted_networks:
+    - 127.0.0.1
+    - ::0
+#    - !secret ip_subnet
+   ip_ban_enabled: False
+   login_attempts_threshold: 5
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  ignore:
+    - ikea_tradfri
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+  exclude:
+#    domains:
+#      - automation
+#      - weblink
+#      - updater
+    entities:
+      - group.lights
+      - group.weather
+      - group.weathertab
+      - group.default_view
+      - group.spotifytab
+      - group.travel
+      - group.traveltab
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor: !include sensors.yaml
+
+# Text to speech
+#tts:
+#  - platform: google
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+recorder:
+  purge_interval: 2
+  purge_keep_days: 7
+
+#iOS Support
+ios:
+
+tradfri:
+  host: !secret ip_tradfri
+  allow_tradfri_groups: False
+
+media_player:
+#  - platform: panasonic_viera
+#    host: !secret ip_TV
+#    name: TV
+  - platform: spotify
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
+
+duckdns:
+  domain: !secret duckdns_domain1
+#  domain: !secret duckdns_domain2
+  access_token: !secret duckdns_access_token

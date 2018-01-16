@@ -1,0 +1,8 @@
+*
+!*.yaml
+!scenes
+!.gitignore
+!gitupdate.sh
+!.travis.yml
+secrets.yaml
+known_devices.yaml

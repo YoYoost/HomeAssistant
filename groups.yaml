@@ -1,0 +1,81 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - light.bijkeuken
+    - light.woonkamer
+    - light.slaapkamer
+    - light.gang
+    - group.Lights
+    - group.Weather
+
+weathertab:
+  name: Weather
+  view: yes
+  entities:
+   - group.Weather
+
+traveltab:
+  name: Travel
+  view: yes
+  entities:
+   - group.Travel
+
+spotifytab:
+  name: Spotify
+  view: yes
+  entities:
+   - media_player.spotify
+
+Weather:
+  name: Weather Services
+  entities:
+   - sensor.br_symbol
+   - sensor.br_temperature
+   - sensor.br_precipitation
+   - sensor.br_precipitation_forecast_average
+   - sensor.br_precipitation_forecast_total
+   - sensor.br_wind_speed
+   - sensor.br_wind_direction
+   - sensor.br_humidity
+   - sensor.br_pressure
+   - sensor.br_rainchance_1d
+   - sensor.br_rainchance_2d
+   - sensor.br_rainchance_3d
+   - sensor.br_rain_1d
+   - sensor.br_rain_2d
+   - sensor.br_rain_3d
+   - sensor.br_temperature_1d
+   - sensor.br_temperature_2d
+   - sensor.br_temperature_3d
+   - sensor.dark_sky_summary
+   - sensor.dark_sky_precip_type
+   - sensor.dark_sky_precip_intensity
+   - sensor.dark_sky_precip_probability
+   - sensor.dark_sky_temperature
+   - sensor.dark_sky_apparent_temperature
+   - sensor.dark_sky_dew_point
+   - sensor.dark_sky_wind_speed
+   - sensor.dark_sky_wind_bearing
+   - sensor.dark_sky_icon
+   - sensor.dark_sky_humidity
+   - sensor.dark_sky_pressure
+   - sensor.dark_sky_visibility
+
+Lights:
+  name: Lights
+  entities:
+   - light.bijkeuken
+   - light.woonkamer
+   - light.slaapkamer
+   - light.gang
+
+Travel:
+  name: Travel
+  entities:
+   - sensor.thuis_naar_werk_auto
+   - sensor.werk_naar_thuis_auto
+   - sensor.thuis_naar_werk_bus
+   - sensor.werk_naar_thuis_bus
+   - sensor.thuis_naar_ouders_auto
+   - sensor.ouders_naar_huis_auto

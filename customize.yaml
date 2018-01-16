@@ -1,0 +1,33 @@
+sensor.dark_sky_apparent_temperature:
+  friendly_name: Apparent Temperature
+  icon: mdi:temperature-celsius
+sensor.dark_sky_humidity:
+  friendly_name: Humidity
+  icon: mdi:water-percent
+sensor.dark_sky_precip_probability:
+  friendly_name: Precip Probability
+  icon: mdi:weather-lightning-rainy
+sensor.rc_gang:
+  hidden: true
+sensor.rc_slaapkamer:
+  hidden: true
+sensor.dark_sky_dew_point:
+  friendly_name: Dew Point
+sensor.dark_sky_icon:
+  friendly_name: Weather
+sensor.dark_sky_precip:
+  friendly_name: Precip
+sensor.dark_sky_precip_intensity:
+  friendly_name: Precip Intensity
+sensor.dark_sky_pressure:
+  friendly_name: Pressure
+sensor.dark_sky_summary:
+  friendly_name: Summary
+sensor.dark_sky_temperature:
+  friendly_name: Temperature
+sensor.dark_sky_visibility:
+  friendly_name: Visibility
+sensor.dark_sky_wind_bearing:
+  friendly_name: Wind Bearing
+sensor.dark_sky_wind_speed:
+  friendly_name: Wind Speed

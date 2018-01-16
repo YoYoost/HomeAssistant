@@ -1,0 +1,82 @@
+- platform: darksky
+  api_key: !secret darksky_api
+  monitored_conditions:
+    - summary
+#    - precip_type
+#    - precip_intensity
+#    - precip_probability
+    - temperature
+    - apparent_temperature
+    - dew_point
+    - wind_speed
+    - wind_bearing
+    - icon
+    - humidity
+    - pressure
+    - visibility
+
+- platform: buienradar
+  monitored_conditions:
+    - symbol
+    - temperature
+    - precipitation
+    - precipitation_forecast_average
+    - precipitation_forecast_total
+    - windspeed
+    - winddirection
+    - humidity
+    - pressure
+    - rainchance_1d
+    - rainchance_2d
+    - rainchance_3d
+    - rain_1d
+    - rain_2d
+    - rain_3d
+    - temperature_1d
+    - temperature_2d
+    - temperature_3d
+
+#- platform: time_date
+#  display_options:
+#    - time
+
+
+- platform: google_travel_time
+  name: Thuis naar Werk (auto)
+  api_key: !secret google_api
+  origin: !secret thuis_location
+  destination: !secret werk_location
+
+- platform: google_travel_time
+  name: Werk naar Thuis (auto)
+  api_key: !secret google_api
+  origin: !secret werk_location
+  destination: !secret thuis_location
+
+- platform: google_travel_time
+  name: Thuis naar Werk (bus)
+  api_key: !secret google_api
+  origin: !secret thuis_location
+  destination: !secret werk_location
+  options:
+    mode: transit
+
+- platform: google_travel_time
+  name: Werk naar Thuis (bus)
+  api_key: !secret google_api
+  origin: !secret werk_location
+  destination: !secret thuis_location
+  options:
+    mode: transit
+
+- platform: google_travel_time
+  name: Thuis naar Ouders (auto)
+  api_key: !secret google_api
+  origin: !secret thuis_location
+  destination: !secret ouders_location
+
+- platform: google_travel_time
+  name: Ouders naar Thuis (auto)
+  api_key: !secret google_api
+  origin: !secret ouders_location
+  destination: !secret thuis_location
