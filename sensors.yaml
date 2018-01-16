@@ -85,3 +85,16 @@
   api_key: !secret steam_api_key
   accounts:
     - !secret steam_account_id
+
+- platform: nzbget
+  host: !secret nzbget_ip
+  port: !secret nzbget_port
+  username: !secret nzbget_username
+  password: !secret nzbget_password
+  monitored_variables:
+#    - article_cache
+    - download_rate
+#    - download_paused
+    - download_size
+    - remaining_size
+    - free_disk_space

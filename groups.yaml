@@ -27,6 +27,12 @@ spotifytab:
   entities:
    - media_player.spotify
 
+downloadtab:
+  name: Download
+  view: yes
+  entities:
+   - group.NZBGet
+
 Weather:
   name: Weather Services
   entities:
@@ -84,3 +90,11 @@ Steam:
   name: Steam
   entities:
    - !secret steam_account_id_sensor
+
+NZBGet:
+  name: NZBGet
+  entities:
+   - sensor.nzbget_speed
+   - sensor.nzbget_disk_free
+   - sensor.nzbget_size
+   - sensor.nzbget_queue_size

@@ -33,7 +33,7 @@ http:
    trusted_networks:
     - 127.0.0.1
     - ::0
-#    - !secret ip_subnet
+#    - !secret subnet_ip
    ip_ban_enabled: False
    login_attempts_threshold: 5
 
@@ -70,6 +70,7 @@ history:
       - group.travel
       - group.traveltab
       - group.steam
+      - group.NZBGet
 
 # View all events in a logbook
 logbook:
@@ -99,12 +100,12 @@ recorder:
 ios:
 
 tradfri:
-  host: !secret ip_tradfri
+  host: !secret tradfri_ip
   allow_tradfri_groups: False
 
 media_player:
 #  - platform: panasonic_viera
-#    host: !secret ip_TV
+#    host: !secret tv_ip
 #    name: TV
   - platform: spotify
     client_id: !secret spotify_client_id
