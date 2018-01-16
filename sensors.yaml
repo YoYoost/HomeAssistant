@@ -98,3 +98,15 @@
     - download_size
     - remaining_size
     - free_disk_space
+
+- platform: transmission
+  host: !secret transmission_ip
+  port: !secret transmission_port
+  username: !secret transmission_username
+  password: !secret transmission_password
+  monitored_variables:
+    - 'current_status'
+    - 'download_speed'
+    - 'upload_speed'
+    - 'active_torrents'
+

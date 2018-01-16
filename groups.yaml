@@ -6,20 +6,20 @@ default_view:
     - light.woonkamer
     - light.slaapkamer
     - light.gang
-    - group.Lights
-    - group.Weather
+    - group.lights
+    - group.weather
 
 weathertab:
   name: Weather
   view: yes
   entities:
-   - group.Weather
+   - group.weather
 
 traveltab:
   name: Travel
   view: yes
   entities:
-   - group.Travel
+   - group.travel
 
 spotifytab:
   name: Spotify
@@ -31,7 +31,8 @@ downloadtab:
   name: Download
   view: yes
   entities:
-   - group.NZBGet
+   - group.nzbget
+   - group.transmission
 
 Weather:
   name: Weather Services
@@ -69,7 +70,7 @@ Weather:
    - sensor.dark_sky_visibility
 
 Lights:
-  name: Lights
+  name: All Lights
   entities:
    - light.bijkeuken
    - light.woonkamer
@@ -77,7 +78,7 @@ Lights:
    - light.gang
 
 Travel:
-  name: Travel
+  name: Travel Services
   entities:
    - sensor.thuis_naar_werk_auto
    - sensor.werk_naar_thuis_auto
@@ -87,7 +88,7 @@ Travel:
    - sensor.ouders_naar_huis_auto
 
 Steam:
-  name: Steam
+  name: Steam Accounts
   entities:
    - !secret steam_account_id_sensor
 
@@ -98,3 +99,11 @@ NZBGet:
    - sensor.nzbget_disk_free
    - sensor.nzbget_size
    - sensor.nzbget_queue_size
+
+Transmission:
+  name: Transmission
+  entities:
+   - sensor.transmission_status
+   - sensor.transmission_active_torrents
+   - sensor.transmission_down_speed
+   - sensor.transmission_up_speed

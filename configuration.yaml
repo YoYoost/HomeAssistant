@@ -70,7 +70,8 @@ history:
       - group.travel
       - group.traveltab
       - group.steam
-      - group.NZBGet
+      - group.nzbget
+      - group.transmission
 
 # View all events in a logbook
 logbook:
