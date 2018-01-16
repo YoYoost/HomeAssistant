@@ -79,3 +79,8 @@ Travel:
    - sensor.werk_naar_thuis_bus
    - sensor.thuis_naar_ouders_auto
    - sensor.ouders_naar_huis_auto
+
+Steam:
+  name: Steam
+  entities:
+   - !secret steam_account_id_sensor

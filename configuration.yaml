@@ -69,6 +69,7 @@ history:
       - group.spotifytab
       - group.travel
       - group.traveltab
+      - group.steam
 
 # View all events in a logbook
 logbook:

@@ -4,5 +4,6 @@
 !.gitignore
 !gitupdate.sh
 !.travis.yml
+!README
 secrets.yaml
 known_devices.yaml

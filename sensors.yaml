@@ -80,3 +80,8 @@
   api_key: !secret google_api
   origin: !secret ouders_location
   destination: !secret thuis_location
+
+- platform: steam_online
+  api_key: !secret steam_api_key
+  accounts:
+    - !secret steam_account_id
