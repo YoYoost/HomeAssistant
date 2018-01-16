@@ -14,3 +14,11 @@ Home Assistant Version: 0.61.0
 ```
 example
 ```
+
+## Manage Home Assistant service:
+
+```
+    service home-assistant@homeassistant stop
+    service home-assistant@homeassistant start
+```
+
