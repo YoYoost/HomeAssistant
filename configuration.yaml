@@ -72,6 +72,7 @@ history:
       - group.steam
       - group.nzbget
       - group.transmission
+      - sensor.time
 
 # View all events in a logbook
 logbook:

@@ -36,9 +36,9 @@
     - temperature_2d
     - temperature_3d
 
-#- platform: time_date
-#  display_options:
-#    - time
+- platform: time_date
+  display_options:
+    - time
 
 
 - platform: google_travel_time

@@ -1,4 +1,4 @@
-- alias: Turn on lights in the morning and at sunset
+- alias: Morning lights on
   trigger:
     - platform: time
       at: "07:15:00"
@@ -9,7 +9,7 @@
     - service: homeassistant.turn_on
       entity_id: light.bijkeuken
 
-- alias: Turn off morning lights
+- alias: Morning lights off
   trigger:
     - platform: time
       at: "07:35:00"
