@@ -3,7 +3,7 @@
 !scenes
 !.gitignore
 !gitupdate.sh
-!README
+!README.md
 !.travis.yml
 secrets.yaml
 known_devices.yaml
