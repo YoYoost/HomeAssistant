@@ -57,8 +57,8 @@ conversation:
 # Enables support for tracking state changes over time
 history:
   exclude:
-#    domains:
-#      - automation
+    domains:
+      - automation
 #      - weblink
 #      - updater
     entities:

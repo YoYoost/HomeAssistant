@@ -1,7 +1,7 @@
 - alias: Morning lights on
   trigger:
     - platform: time
-      at: "07:15:00"
+      at: "07:20:00"
 #    - platform: sun
 #      event: sunset
 #      offset: '-01:00:00'
@@ -12,7 +12,7 @@
 - alias: Morning lights off
   trigger:
     - platform: time
-      at: "07:35:00"
+      at: "07:45:00"
 #    - platform: numeric_state
 #      entity_id: sun.sun
 #      value_template: "{{ state.attributes.elevation }}"
