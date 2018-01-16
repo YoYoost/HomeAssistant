@@ -1,1 +1,23 @@
-[]
+- alias: Turn on lights in the morning and at sunset
+  trigger:
+    - platform: time
+      at: "07:15:00"
+#    - platform: sun
+#      event: sunset
+#      offset: '-01:00:00'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: light.bijkeuken
+
+- alias: Turn off morning lights
+  trigger:
+    - platform: time
+      at: "07:35:00"
+#    - platform: numeric_state
+#      entity_id: sun.sun
+#      value_template: "{{ state.attributes.elevation }}"
+#      # Can be a positive or negative number
+#      above: 10.0
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.bijkeuken
