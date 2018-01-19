@@ -41,6 +41,12 @@ downloadtab:
    - group.nzbget
    - group.transmission
 
+systemtab:
+  name: System
+  view: yes
+  entities:
+   - group.system
+
 Weather:
   name: Weather Services
   entities:
@@ -125,3 +131,13 @@ Automation:
   entities:
    - automation.morning_lights_on
    - automation.morning_lights_off
+
+System:
+  name: System Information
+  entities:
+   - sensor.cpu_use
+   - sensor.disk_use_
+   - sensor.ram_free
+   - sensor.received_enxb827eb52955a
+   - sensor.sent_enxb827eb52955a
+   - sensor.last_boot

@@ -110,3 +110,15 @@
     - 'upload_speed'
     - 'active_torrents'
 
+- platform: systemmonitor
+  resources:
+  - type: disk_use_percent
+    arg: /
+  - type: memory_free
+  - type: processor_use
+  - type: network_in
+    arg: enxb827eb52955a
+  - type: network_out
+    arg: enxb827eb52955a
+  - type: last_boot
+
