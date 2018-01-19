@@ -59,19 +59,20 @@ history:
   exclude:
     domains:
       - automation
+      - group
 #      - weblink
 #      - updater
     entities:
-      - group.lights
-      - group.weather
-      - group.weathertab
-      - group.default_view
-      - group.spotifytab
-      - group.travel
-      - group.traveltab
-      - group.steam
-      - group.nzbget
-      - group.transmission
+#      - group.lights
+#      - group.weather
+#      - group.weathertab
+#      - group.default_view
+#      - group.spotifytab
+#      - group.travel
+#      - group.traveltab
+#      - group.steam
+#      - group.nzbget
+#      - group.transmission
       - sensor.time
 
 # View all events in a logbook
@@ -121,3 +122,8 @@ duckdns:
   domain: !secret duckdns_domain1
 #  domain: !secret duckdns_domain2
   access_token: !secret duckdns_access_token
+
+input_boolean:
+  ochtend_licht:
+    name: Ochtend Licht
+    initial: on

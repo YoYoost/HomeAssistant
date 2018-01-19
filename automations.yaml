@@ -1,23 +1,55 @@
 - alias: Morning lights on
   trigger:
-    - platform: time
-      at: "07:20:00"
+    platform: time
+    at: '07:20:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+#    - condition: state
+#      entity_id: device_tracker.scott
+#      state: 'home'
 #    - platform: sun
 #      event: sunset
 #      offset: '-01:00:00'
+    - condition: state
+      entity_id: input_boolean.ochtend_licht
+      state: 'on'
   action:
     - service: homeassistant.turn_on
       entity_id: light.bijkeuken
 
 - alias: Morning lights off
   trigger:
-    - platform: time
-      at: "07:45:00"
+    platform: time
+    at: '07:45:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+#    - condition: state
+#      entity_id: device_tracker.scott
+#      state: 'home'
 #    - platform: numeric_state
 #      entity_id: sun.sun
 #      value_template: "{{ state.attributes.elevation }}"
 #      # Can be a positive or negative number
 #      above: 10.0
+    - condition: state
+      entity_id: input_boolean.ochtend_licht
+      state: 'on'
   action:
     - service: homeassistant.turn_off
       entity_id: light.bijkeuken

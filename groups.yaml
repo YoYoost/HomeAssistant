@@ -9,6 +9,13 @@ default_view:
     - group.lights
     - group.weather
 
+automationtab:
+  name: Automation
+  view: yes
+  entities:
+   - group.automation
+   - group.inputbooleans
+
 weathertab:
   name: Weather
   view: yes
@@ -107,3 +114,14 @@ Transmission:
    - sensor.transmission_active_torrents
    - sensor.transmission_down_speed
    - sensor.transmission_up_speed
+
+InputBooleans:
+  name: Input Booleans
+  entities:
+   - input_boolean.ochtend_licht
+
+Automation:
+  name: All Automation
+  entities:
+   - automation.morning_lights_on
+   - automation.morning_lights_off
