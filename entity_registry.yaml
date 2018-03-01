@@ -1,0 +1,12 @@
+sensor.iphone_battery_state:
+  platform: ios
+  unique_id: state_iphone_Eef
+sensor.iphone_battery_level:
+  platform: ios
+  unique_id: level_iphone_Eef
+media_player.muziek:
+  platform: cast
+  unique_id: 510b9af9-6534-69f2-caa2-38e33f8b803d
+media_player.tv:
+  platform: cast
+  unique_id: 11e006f2-b469-fcb0-f084-a356f972094d

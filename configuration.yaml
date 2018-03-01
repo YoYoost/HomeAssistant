@@ -137,6 +137,9 @@ duckdns:
   access_token: !secret duckdns_access_token
 
 input_boolean:
-  ochtend_licht:
-    name: Ochtend Licht
-    initial: on
+  morning_light:
+    name: Ochtend licht
+    initial: off
+  vacation_light:
+    name: Vakantie licht
+    initial: off

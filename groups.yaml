@@ -7,13 +7,13 @@ default_view:
     - light.slaapkamer
     - light.gang
     - group.lights
-    - group.weather
+#    - group.weather
 
 automationtab:
   name: Automation
   view: yes
   entities:
-   - group.automation
+#   - group.automation
    - group.inputbooleans
 
 weathertab:
@@ -40,6 +40,12 @@ downloadtab:
   entities:
    - group.nzbget
    - group.transmission
+
+piholetab:
+  name: Pi-hole
+  view: yes
+  entities:
+   - group.pihole
 
 systemtab:
   name: System
@@ -83,7 +89,7 @@ Weather:
    - sensor.dark_sky_visibility
 
 Lights:
-  name: All Lights
+  name: Lights
   entities:
    - light.bijkeuken
    - light.woonkamer
@@ -122,22 +128,40 @@ Transmission:
    - sensor.transmission_up_speed
 
 InputBooleans:
-  name: Input Booleans
+  name: Schema's
   entities:
-   - input_boolean.ochtend_licht
+   - input_boolean.morning_light
+   - input_boolean.vacation_light
 
 Automation:
-  name: All Automation
+  name: Automation
   entities:
-   - automation.morning_lights_on
-   - automation.morning_lights_off
+   - automation.morning_light_on
+   - automation.morning_light_off
+   - automation.vacation_light_on
+   - automation.vacation_light_off
+   - automation.vacation_light_2_on
+   - automation.vacation_light_2_off
+
+PiHole:
+  name: All Pi-Hole sensors
+  entities:
+   - sensor.pihole_ads_blocked_today
+   - sensor.pihole_ads_blocked_today
+   - sensor.pihole_ads_percentage_blocked_today
+   - sensor.pihole_dns_queries_cached
+   - sensor.pihole_dns_queries_forwarded
+   - sensor.pihole_dns_queries_today
+   - sensor.pihole_dns_unique_clients
+   - sensor.pihole_dns_unique_domains
+   - sensor.pihole_domains_blocked
 
 System:
   name: System Information
   entities:
-   - sensor.cpu_use
-   - sensor.disk_use_
-   - sensor.ram_free
-   - sensor.received_enxb827eb52955a
-   - sensor.sent_enxb827eb52955a
+   - sensor.processor_use
+   - sensor.disk_use_percent_
+   - sensor.memory_free
+   - sensor.network_in_enxb827eb52955a
+   - sensor.network_out_enxb827eb52955a
    - sensor.last_boot

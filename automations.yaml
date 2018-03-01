@@ -1,4 +1,5 @@
-- alias: Morning lights on
+#Morning light
+- alias: Morning light on
   trigger:
     platform: time
     at: '07:20:00'
@@ -19,13 +20,13 @@
 #      event: sunset
 #      offset: '-01:00:00'
     - condition: state
-      entity_id: input_boolean.ochtend_licht
+      entity_id: input_boolean.morning_light
       state: 'on'
   action:
     - service: homeassistant.turn_on
       entity_id: light.bijkeuken
 
-- alias: Morning lights off
+- alias: Morning light off
   trigger:
     platform: time
     at: '07:45:00'
@@ -48,8 +49,102 @@
 #      # Can be a positive or negative number
 #      above: 10.0
     - condition: state
-      entity_id: input_boolean.ochtend_licht
+      entity_id: input_boolean.morning_light
       state: 'on'
   action:
     - service: homeassistant.turn_off
       entity_id: light.bijkeuken
+
+#Vacation light living room and hallway
+- alias: Vacation light on
+  trigger:
+    platform: time
+    at: '18:20:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: light.woonkamer, light.gang
+
+- alias: Vacation light off
+  trigger:
+    platform: time
+    at: '22:45:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.woonkamer, light.gang
+
+#Vacation light bedroom
+- alias: Vacation light 2 on
+  trigger:
+    platform: time
+    at: '22:20:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: light.slaapkamer
+
+- alias: Vacation light 2 off
+  trigger:
+    platform: time
+    at: '23:45:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: light.slaapkamer
