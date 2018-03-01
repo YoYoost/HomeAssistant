@@ -9,6 +9,7 @@
 !LICENSE
 !PULL_REQUEST_TEMPLATE.md
 !README.md
+!_config.yml
 !gitupdate.sh
 secrets.yaml
 known_devices.yaml
