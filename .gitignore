@@ -2,8 +2,13 @@
 !*.yaml
 !scenes
 !.gitignore
-!gitupdate.sh
-!README.md
 !.travis.yml
+!CODE_OF_CONDUCT.md
+!CONTRIBUTING.md
+!ISSUE_TEMPLATE.md
+!LICENSE
+!PULL_REQUEST_TEMPLATE.md
+!README.md
+!gitupdate.sh
 secrets.yaml
 known_devices.yaml
