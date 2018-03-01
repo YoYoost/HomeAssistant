@@ -1,4 +1,4 @@
-# [![Build Status](https://travis-ci.org/YoYoost/HomeAssistant.svg?branch=master)](https://travis-ci.org/YoYoost/HomeAssistant) [![Coverage Status](https://coveralls.io/repos/github/YoYoost/HomeAssistant/badge.svg?branch=master)](https://coveralls.io/github/YoYoost/HomeAssistant?branch=master) Home Assistant Config by YoYoost
+# [![Build Status](https://travis-ci.org/YoYoost/HomeAssistant.svg?branch=master)](https://travis-ci.org/YoYoost/HomeAssistant) [![Coverage Status](https://coveralls.io/repos/github/YoYoost/HomeAssistant/badge.svg?branch=master)](https://coveralls.io/github/YoYoost/HomeAssistant?branch=master) [![Code Health](https://landscape.io/github/YoYoost/HomeAssistant/master/landscape.svg?style=flat)](https://landscape.io/github/YoYoost/HomeAssistant/master) Home Assistant Config by YoYoost
 This is my [Home Assistant](https://home-assistant.io) configuration which is running on a [Raspberry PI 2](https://www.raspberrypi.org/products/raspberry-pi-2-model-b/) running [Hassbian](https://home-assistant.io/docs/installation/hassbian/installation/).
 
 Home Assistant Version: 0.64.1
