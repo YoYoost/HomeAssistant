@@ -1,0 +1,541 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret lat_location
+  longitude: !secret lon_location
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret ele_location
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone_location
+  external_url: !secret baseurl
+#  internal_url: !secret baseurl
+  # Customization file
+  customize: !include customize.yaml
+#  auth_providers:
+#   - type: homeassistant
+#   - type: legacy_api_password
+  allowlist_external_dirs:
+    - /config/
+    - /config/pihole/
+#    - /var/lib/
+#    - /usr/share/
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+#  themes: !include themes.yaml
+  themes: !include_dir_merge_named themes/
+
+#lovelace:
+#  mode: yaml
+
+# Enables configuration UI
+config:
+
+http:
+#   Secrets are defined in the file secrets.yaml
+#  api_password: !secret http_password
+#   Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+#  base_url: !secret baseurl
+#   ssl_certificate: !secret https_ssl_certificate
+#   ssl_key: !secret https_ssl_key
+#   base_url: !secret https_base_url
+#   cors_allowed_origins:
+#    - !secret baseurl
+  use_x_forwarded_for: True
+  trusted_proxies:
+    - 127.0.0.1
+    - ::1
+#  trusted_networks:
+#    - 127.0.0.1
+#    - ::0
+#    - !secret subnet_ip
+  ip_ban_enabled: False
+  login_attempts_threshold: 5
+
+#api:
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+#  Deprecated Optional, allows Home Assistant developers to focus on popular components.
+#  include_used_components: true
+
+system_health:
+
+# Discover some devices automatically
+#https://www.home-assistant.io/components/discovery/
+#discovery:
+#  ignore:
+#    - ikea_tradfri
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Responsible for storing details in a database which then are handled by the history and logbook integration
+recorder:
+  purge_keep_days: 28
+#  purge_interval: 1
+#  db_url: sqlite:////home/user/.homeassistant/test
+#  include:
+#    domains:
+#      - climate
+#      - device_tracker
+#      - media_player
+#      - sensor
+#      - sun
+#      - light
+#    entities:
+#      - input_boolean.vacation_light
+  exclude:
+    domains:
+      - automation
+      - binary_sensor
+      - group
+      - input_boolean
+      - updater
+      - weblink
+      - zone
+      - mqtt
+      - pihole
+#      - sensor
+    entities:
+      - sensor.time
+      - sensor.cpu_use
+      - sensor.last_boot
+      - sensor.memory_free
+      - sensor.processor_use
+      - sensor.processor_use_percent
+      - sensor.network_in_eth0
+      - sensor.network_out_eth0
+      - sensor.heating_overlay
+      - sensor.heating_power
+      - sensor.power_production
+      - sensor.power_production_low
+      - sensor.power_production_normal
+      - sensor.power_production_phase_l1
+      - sensor.power_production_phase_l2
+      - sensor.power_production_phase_l3
+      - sensor.power_consumption_phase_l1
+      - sensor.power_consumption_phase_l2
+      - sensor.power_consumption_phase_l3
+      - sensor.voltage_phase_l1
+      - sensor.voltage_phase_l2
+      - sensor.voltage_phase_l3
+      - sensor.voltage_sags_phase_l1
+      - sensor.voltage_sags_phase_l2
+      - sensor.voltage_sags_phase_l3
+      - sensor.voltage_swells_phase_l1
+      - sensor.voltage_swells_phase_l2
+      - sensor.voltage_swells_phase_l3
+      - sensor.power_consumption_phase_l1
+      - sensor.power_production_phase_l1
+      - sensor.voltage_phase_l1
+      - sensor.voltage_sags_phase_l1
+      - sensor.voltage_swells_phase_l1
+      - sensor.long_power_failure_count
+      - sensor.short_power_failure_count
+      - sensor.current_phase_l1
+      - sensor.current_phase_l2
+      - sensor.current_phase_l3
+      - sensor.power_consumption
+      - sensor.power_tariff
+      - sensor.energy_consumption_tarif_1
+      - sensor.energy_consumption_tarif_2
+      - sensor.energy_production_tarif_1
+      - sensor.energy_production_tarif_2
+      - sensor.gas_consumption
+      - sensor.homeassistant_db_size
+      - sensor.pihole_gravity_db_size
+      - sensor.pihole_query_db_size
+      - sensor.home_assistant_log
+ 
+# Enables support for tracking state changes over time
+history:
+#  include:
+#    domains:
+#    entities:
+#  exclude:
+#    domains:
+#    entities:
+
+# View all events in a logbook
+logbook:
+#  include:
+#    domains:
+#    entities:
+  exclude:
+    domains:
+      - sensor
+#    entities:
+#      - sensor.time
+#      - media_player.spotify
+#      - sensor.cpu_use
+
+# Custom logger settings
+logger:
+#  default: warning
+  default: info
+#  logs:
+#     ignore auth warnings like: Found malformed XML at http://123.123.123.123:9080: status=ok
+#    netdisco.ssdp: error
+#     ignore auth warnings like: Please use access_token instead api_password (https://github.com/home-assistant/home-assistant/issues/15423)
+#    homeassistant.components.http.auth: error
+#    homeassistant.components.http: error
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Text to speech
+#tts:
+#  - platform: google
+
+cloud:
+
+mobile_app:
+
+notify:
+  - platform: html5
+    name: html5
+    vapid_pub_key: !secret vapid_pub_key
+    vapid_prv_key: !secret vapid_prv_key
+    vapid_email: !secret vapid_email
+
+person:
+
+#SSDP “Simple Service Discovery Protocol” integration will scan the network for supported devices and services.
+#https://www.home-assistant.io/components/ssdp/
+#ssdp:
+
+#Zeroconf integration will scan the network for supported devices and services. 
+#https://www.home-assistant.io/components/zeroconf/
+#zeroconf:
+#Added for docker environment
+#  default_interface: true
+
+sensor: !include sensors.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+#iOS Support
+#ios:
+
+tradfri:
+  host: !secret tradfri_ip
+  allow_tradfri_groups: False
+
+media_player:
+#  - platform: panasonic_viera
+#    host: !secret tv_ip
+#    name: TV
+#  - platform: kodi
+#    host: !secret kodi_ip
+#    port: !secret kodi_port
+#    username: !secret kodi_username
+#    password: !secret kodi_password
+
+
+spotify:
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
+
+duckdns:
+  domain: !secret duckdns_domain1
+#  domain: !secret duckdns_domain2
+  access_token: !secret duckdns_access_token
+
+input_boolean:
+  morning_light:
+    name: Ochtend licht
+    initial: off
+  vacation_light:
+    name: Vakantie licht
+    initial: off
+  all_lights_off:
+    name: Alle lichten uit
+    initial: on
+  all_lights_automation:
+    name: Boolean lichten uit
+    initial: on
+  autothemes:
+    name: Automatic themes
+    initial: on
+  living_room_switch:
+    name: Woonkamer lichten switch
+    initial: on
+  toilet_light:
+    name: Toilet licht uit
+    initial: on
+  shed_light:
+    name: Schuur licht
+    initial: on
+
+#camera:
+#  - platform: yi 
+#    name: !secret camera1_name
+#    host: !secret camera1_ip
+#    password: !secret camera1_password
+#    path: /tmp/sd/record
+#    ffmpeg_bin: /usr/bin/ffmpeg
+#    ffmpeg_arguments: '-vf scale=800:450'
+
+#tado:
+#  username: !secret tado_username
+#  password: !secret tado_password
+
+device_tracker:
+  - platform: tado
+    username: !secret tado_username
+    password: !secret tado_password
+    home_id: !secret tado_home_id
+
+#pi_hole:
+#  host: !secret pihole_host
+#  ssl: false
+#  verify_ssl: false
+
+#transmission:
+#  host: !secret transmission_ip
+#  port: !secret transmission_port
+#  username: !secret transmission_username
+#  password: !secret transmission_password
+#  monitored_conditions:
+#    - current_status
+#    - download_speed
+#    - upload_speed
+#    - active_torrents
+
+#nzbget:
+#  host: !secret nzbget_ip
+#  port: !secret nzbget_port
+#  username: !secret nzbget_username
+#  password: !secret nzbget_password
+#  monitored_variables:
+#    - article_cache
+#    - download_rate
+#    - download_paused
+#    - download_size
+#    - remaining_size
+#    - free_disk_space
+
+input_select:
+  pihole_time:
+    name: Disable Time (seconds)
+    options:
+      - Select Time
+      - 60
+      - 300
+      - 600
+      - 900
+      - 1800
+      - 3600
+    initial: Select Time
+
+shell_command:
+  pihole_enable: !secret pihole_cmd_enable
+  pihole_disable: !secret pihole_cmd_disable
+
+rest_command:
+  reload_ikea:
+    url: !secret ikea_url
+    method: POST
+    headers:
+      authorization: !secret ikea_api_bearer_token
+      content-type: application/json
+
+mqtt:
+  broker: !secret mqtt_ip
+  port: !secret mqtt_port
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+switch:
+  - platform: template
+    switches:
+      nzbget_pause:
+        value_template: "{{ is_state('sensor.nzbget_download_paused', 'True') }}"
+        turn_on:
+          service: nzbget.pause
+        turn_off:
+          service: nzbget.resume
+
+  - platform: template
+    switches:
+      home_mute:
+        value_template: "{{ state_attr('media_player.home', 'is_volume_muted') }}"
+        turn_on:
+          service: media_player.volume_mute
+          data_template:
+            entity_id: media_player.home
+            is_volume_muted: "{{ not state_attr('media_player.home', 'is_volume_muted') }}"
+        turn_off:
+          service: media_player.volume_mute
+          data_template:
+            entity_id: media_player.home
+            is_volume_muted: "{{ not state_attr('media_player.home', 'is_volume_muted') }}"
+
+#test  - platform: mqtt
+#    name: "TV Switch 1"
+#    state_topic: "stat/tv/RESULT"  
+#    value_template: "{{ value_json.POWER1 }}"
+#    command_topic: "cmnd/tv/POWER1"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/tv/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+#test  - platform: mqtt
+#    name: "TV Switch 2"
+#    state_topic: "stat/tv/RESULT"  
+#    value_template: "{{ value_json.POWER2 }}"
+#    command_topic: "cmnd/tv/POWER2"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/tv/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+
+#  - platform: mqtt
+#    name: "Wasmachine Switch"
+#    state_topic: "stat/washingmachine/RESULT"  
+#    value_template: "{{ value_json.POWER }}"
+#    command_topic: "cmnd/washingmachine/POWER"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/washingmachine/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+#
+##test  - platform: mqtt
+##    name: "Buiten Switch"
+##    state_topic: "stat/outside/RESULT"
+##    value_template: "{{ value_json.POWER }}"
+##    command_topic: "cmnd/outside/POWER"
+##    payload_on: "ON"
+##    payload_off: "OFF"
+##    availability_topic: "tele/outside/LWT"
+##    payload_available: "Online"
+##    payload_not_available: "Offline"
+##    qos: 1
+##    retain: false
+#
+#light:
+#
+#  - platform: mqtt
+#    name: "Kast"
+#    state_topic: "stat/cabinet-light/RESULT"  
+#    state_value_template: "{{ value_json.POWER }}"
+#    command_topic: "cmnd/cabinet-light/POWER"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/cabinet-light/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+#
+#  - platform: mqtt
+#    name: "Lichtslinger"
+#    state_topic: "stat/string-light/RESULT"  
+#    state_value_template: "{{ value_json.POWER }}"
+#    command_topic: "cmnd/string-light/POWER"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/string-light/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+#
+#  - platform: mqtt
+#    name: "Bank"
+#    state_topic: "stat/couch-light/RESULT"  
+#    state_value_template: "{{ value_json.POWER }}"
+#    command_topic: "cmnd/couch-light/POWER"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/couch-light/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+
+#test  - platform: mqtt
+#    name: "Buiten Switch"
+#    state_topic: "stat/outside/RESULT"
+#    state_value_template: "{{ value_json.POWER }}"
+#    command_topic: "cmnd/outside/POWER"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/outside/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+
+#test  - platform: mqtt
+#    name: "Schuur"
+#    command_topic: "cmnd/shed-light/POWER"
+#    state_topic: "tele/shed-light/STATE"
+#    state_value_template: "{{ value_json.POWER }}"
+#    availability_topic: "tele/shed-light/LWT"
+#    brightness_command_topic: "cmnd/shed-light/Dimmer"
+#    brightness_state_topic: "tele/shed-light/STATE"
+#    brightness_scale: 100
+#    on_command_type: "brightness"
+#    brightness_value_template: "{{ value_json.Dimmer }}"
+#    color_temp_command_topic: "cmnd/tasmota/CT"
+#    color_temp_state_topic: "tele/tasmota/STATE"
+#    color_temp_value_template: "{{ value_json.CT }}"
+#    white_value_state_topic: "stat/shed-light/RESULT"
+#    white_value_command_topic: "cmnd/shed-light/white"
+#    white_value_scale: 100
+#    white_value_template: "{{ value_json.White }}"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+
+#test  - platform: mqtt
+#    name: "TV Switch 1"
+#    state_topic: "stat/tv/RESULT"
+#    value_template: "{{ value_json.POWER1 }}"
+#    command_topic: "cmnd/tv/POWER1"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/tv/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false
+#test  - platform: mqtt
+#    name: "TV Switch 2"
+#    state_topic: "stat/tv/RESULT"
+#    value_template: "{{ value_json.POWER2 }}"
+#    command_topic: "cmnd/tv/POWER2"
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    availability_topic: "tele/tv/LWT"
+#    payload_available: "Online"
+#    payload_not_available: "Offline"
+#    qos: 1
+#    retain: false

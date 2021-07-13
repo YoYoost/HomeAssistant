@@ -1,0 +1,14 @@
+language: python
+python: 3.7.3
+dist: xenial
+sudo: true
+before_install:
+  - mv travis_secrets.yaml secrets.yaml
+  - touch customize.yaml
+install:
+  - pip3 install homeassistant
+  - pip install coveralls
+script:
+  - hass -c . --script check_config
+after_success:
+  - coveralls

@@ -1,0 +1,282 @@
+#default_view:
+#  icon: mdi:home
+#  entities:
+#    - light.bijkeuken
+#    - light.booglamp
+#    - light.slaapkamer
+#    - light.gang
+#    - group.lights
+##    - group.weather
+##    - group.heating
+#    - climate.heating
+#
+#climatetab:
+#  name: Climate
+#  entities:
+#    - group.climate
+#
+#automationtab:
+#  name: Automation
+#  entities:
+##    - group.automation
+#    - group.inputbooleans
+#
+#weathertab:
+#  name: Weather
+#  entities:
+#    - group.buienradar
+#    - group.darksky
+#    - group.msw
+#
+##traveltab:
+##  name: Travel
+##  entities:
+##    - group.travel
+#
+#mediatab:
+#  name: Media
+#  entities:
+#    - media_player.kodi
+#    - media_player.spotify
+#
+#downloadtab:
+#  name: Download
+#  entities:
+#    - group.nzbget
+#    - group.transmission
+#
+#piholetab:
+#  name: Pi-hole
+#  entities:
+#    - group.pihole
+#
+#systemtab:
+#  name: System
+#  entities:
+#    - group.system
+#    - group.glances
+#    - group.certificates
+#
+##cameratab:
+##  name: Cameras
+##  entities:
+##    - group.cameras
+
+Buienradar:
+  name: Buienradar
+  entities:
+    - sensor.br_symbol
+    - sensor.br_temperature
+    - sensor.br_precipitation
+    - sensor.br_precipitation_forecast_average
+    - sensor.br_precipitation_forecast_total
+    - sensor.br_wind_speed
+    - sensor.br_wind_direction
+    - sensor.br_humidity
+    - sensor.br_pressure
+    - sensor.br_rainchance_1d
+    - sensor.br_rainchance_2d
+    - sensor.br_rainchance_3d
+    - sensor.br_rain_1d
+    - sensor.br_rain_2d
+    - sensor.br_rain_3d
+    - sensor.br_temperature_1d
+    - sensor.br_temperature_2d
+    - sensor.br_temperature_3d
+
+DarkSky:
+  name: Dark Sky
+  entities:
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_precip_type
+    - sensor.dark_sky_precip_intensity
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_apparent_temperature
+    - sensor.dark_sky_dew_point
+    - sensor.dark_sky_wind_speed
+    - sensor.dark_sky_wind_bearing
+    - sensor.dark_sky_icon
+    - sensor.dark_sky_humidity
+    - sensor.dark_sky_pressure
+    - sensor.dark_sky_visibility
+
+Lights:
+  name: Lights
+  entities:
+    - light.bijkeuken
+    - light.booglamp
+    - light.cabinet
+    - light.couch
+    - light.lightstring
+    - light.slaapkamer
+    - light.gang
+    - light.toilet
+
+Travel:
+  name: Travel Services
+  entities:
+    - sensor.thuis_naar_werk_auto
+    - sensor.werk_naar_thuis_auto
+    - sensor.thuis_naar_werk_bus
+    - sensor.werk_naar_thuis_bus
+    - sensor.thuis_naar_ouders_auto
+    - sensor.ouders_naar_huis_auto
+
+Steam:
+  name: Steam Accounts
+  entities:
+    - !secret steam_account_id_sensor
+
+NZBGet:
+  name: NZBGet
+  entities:
+    - sensor.nzbget_speed
+    - sensor.nzbget_disk_free
+    - sensor.nzbget_size
+    - sensor.nzbget_queue_size
+
+Transmission:
+  name: Transmission
+  entities:
+    - sensor.transmission_status
+    - sensor.transmission_active_torrents
+    - sensor.transmission_down_speed
+    - sensor.transmission_up_speed
+
+InputBooleans:
+  name: Schema's
+  entities:
+    - input_boolean.morning_light
+    - input_boolean.vacation_light
+    - input_boolean.all_lights_off
+
+Automation:
+  name: Automation
+  entities:
+    - automation.morning_light_on
+    - automation.morning_light_off
+    - automation.vacation_light_on
+    - automation.vacation_light_off
+    - automation.vacation_light_2_on
+    - automation.vacation_light_2_off
+    - automation.all_lights_off
+
+PiHole:
+  name: All Pi-Hole sensors
+  entities:
+    - sensor.pihole_status
+    - script.enable_pihole
+    - input_select.pihole_time
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_ads_percentage_blocked_today
+    - sensor.pihole_dns_queries_cached
+    - sensor.pihole_dns_queries_forwarded
+    - sensor.pihole_dns_queries_today
+    - sensor.pihole_dns_unique_clients
+    - sensor.pihole_dns_unique_domains
+    - sensor.pihole_domains_blocked
+
+#System:
+#  name: System Information
+#  entities:
+#    - sensor.processor_use
+#    - sensor.disk_use_percent_
+#    - sensor.memory_free
+#    - sensor.network_in_enxb827eb9dd2ee
+#    - sensor.network_out_enxb827eb9dd2ee
+#    - sensor.last_boot
+
+Cameras:
+  name: All Cameras
+  entities:
+    - camera.camera1
+
+Climate:
+  name: Climate control
+  entities:
+    - climate.heating
+    - sensor.heating_heating
+    - sensor.heating_humidity
+    - sensor.heating_link
+    - sensor.heating_overlay
+    - sensor.heating_power
+    - sensor.heating_tado_mode
+    - sensor.heating_temperature
+
+#Glances:
+#  name: All Glances
+#  entities:
+#    - sensor.glances_cpu_load
+#    - sensor.glances_cpu_temp
+#    - sensor.glances_disk_free
+#    - sensor.glances_disk_used
+#    - sensor.glances_disk_used_2
+#    - sensor.glances_ram_free
+#    - sensor.glances_ram_used
+#    - sensor.glances_ram_used_2
+#    - sensor.glances_running
+#    - sensor.glances_sleeping
+#    - sensor.glances_swap_free
+#    - sensor.glances_swap_used
+#    - sensor.glances_swap_used_2
+#    - sensor.glances_thread
+#    - sensor.glances_total
+#    - sensor.uptime
+
+Certificates:
+  name: All Certificates
+  entities:
+    - sensor.yoyoostduckdnsorg
+    - sensor.ha2aduckdnsorg
+
+MSW:
+  name: Magicseaweed
+  entities:
+    - sensor.msw_forecast
+    - sensor.current_msw_min
+    - sensor.current_msw_max
+
+meter_readings:
+  name: Meter readings
+  entities:
+    - sensor.power_consumption_low
+    - sensor.power_consumption_normal
+    - sensor.power_production_low
+    - sensor.power_production_normal
+    - sensor.gas_consumption
+
+living-room:
+  name: Woonkamer lampen
+  entities:
+    - light.booglamp
+    - light.cabinet
+    - light.couch
+    - light.lightstring
+
+kitchen:
+  name: Keuken lampen
+  entities:
+    - light.keuken_1
+    - light.keuken_2
+    - light.keuken_3
+    - light.keuken_4
+    - light.keuken_5
+
+bathroom:
+  name: Badkamer lampen
+  entities:
+    - light.badkamer_1
+    - light.badkamer_2
+    - light.badkamer_3
+    - light.badkamer_4
+    - light.badkamer_5
+
+coming_home:
+  name: Thuiskom lichten
+  entities:
+    - light.shed
+    - light.bijkeuken
+    - light.gang
+

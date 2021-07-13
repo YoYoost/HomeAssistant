@@ -1,0 +1,636 @@
+- alias: Morning light on
+  initial_state: true
+  trigger:
+    platform: time
+    at: 07:20:00
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: sun
+      before: sunrise
+    - condition: state
+      entity_id: input_boolean.morning_light
+      state: 'on'
+  action:
+  - service: homeassistant.turn_on
+    entity_id: light.bijkeuken
+  id: 84288d87613845d7af94e53f880fb305
+- alias: Morning light off
+  initial_state: true
+  trigger:
+    platform: time
+    at: 07:50:00
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: state
+      entity_id: input_boolean.morning_light
+      state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: light.bijkeuken
+  id: 0dd7b81f5e654e299eb32a4bd1c007cf
+- alias: Vacation light on
+  initial_state: true
+  trigger:
+    platform: time
+    at: '17:45:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+  - delay: 00:{{ range(0,5) | random | int }}{{ range(0,9) | random | int }}:00
+  - service: homeassistant.turn_on
+    entity_id: light.booglamp, light.gang
+  id: 081abfdf85ef46d989d68d984fe9118b
+- alias: Vacation light off
+  initial_state: true
+  trigger:
+    platform: time
+    at: '22:00:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+  - delay: 00:{{ range(0,5) | random | int }}{{ range(0,9) | random | int }}:00
+  - service: homeassistant.turn_off
+    entity_id: light.booglamp, light.gang
+  id: 5039ed4fdcfd478e8730fbf2fa6d0349
+- alias: Vacation light 2 on
+  initial_state: true
+  trigger:
+    platform: time
+    at: '22:00:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+  - delay: 00:{{ range(0,5) | random | int }}{{ range(0,9) | random | int }}:00
+  - service: homeassistant.turn_on
+    entity_id: light.slaapkamer
+  id: db6e9c94f8534e60b10bd11baecbd55b
+- alias: Vacation light 2 off
+  initial_state: true
+  trigger:
+    platform: time
+    at: '23:00:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.vacation_light
+      state: 'on'
+  action:
+  - delay: 00:{{ range(0,5) | random | int }}{{ range(0,9) | random | int }}:00
+  - service: homeassistant.turn_off
+    entity_id: light.slaapkamer
+  id: 5afce70344bc4675b9c98d2bb18694c9
+- id: 35cc98657f6b4c059cd2aef04ca666ec
+  alias: All lights off action
+  trigger:
+  - platform: time
+    at: '23:55:00'
+  - platform: time
+    at: 00:55:00
+  - platform: time
+    at: 01:55:00
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.all_lights_off
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.all_lights_automation
+      state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    data: {}
+    entity_id: group.all_lights
+  initial_state: true
+  mode: single
+- alias: Set HA theme for day and night
+  trigger:
+  - platform: homeassistant
+    event: start
+  - platform: state
+    entity_id: sun.sun
+    to: above_horizon
+  - platform: state
+    entity_id: sun.sun
+    to: below_horizon
+  condition:
+  - condition: state
+    entity_id: input_boolean.autothemes
+    state: 'on'
+  action:
+  - service_template: frontend.set_theme
+    data_template:
+      name: "{% if states.sun.sun.state == \"above_horizon\" %}\n  default\n{% else\
+        \ %}\n  slate\n{% endif %}\n"
+  id: 36d3a656389549388fa2467d3ade5773
+- alias: Disable Pi-Hole
+  trigger:
+    platform: state
+    entity_id: input_select.pihole_time
+  action:
+    service: shell_command.pihole_disable
+  id: aa27a31c215c4875a563680751aa1eba
+- alias: Reset PiHole Disable Time
+  trigger:
+  - platform: state
+    entity_id: script.enable_pihole
+  - platform: state
+    entity_id: sensor.pihole_status
+    from: disabled
+    to: enabled
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.pihole_time
+      option: Select Time
+  id: 7725dac7eb434e90ac2e38ac9bb120b3
+- alias: Power state on HA start-up
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmotas/state
+      payload: ''
+  id: 3d2862a542224630871df2b3ed62a10b
+- id: cac46e6ffa144d21a652eb58dd3c73c7
+  alias: Livingroom switch on
+  trigger:
+  - platform: state
+    entity_id: light.cabinet
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_switch
+    state: 'on'
+  action:
+  - service: homeassistant.turn_on
+    entity_id: light.booglamp
+  - service: homeassistant.turn_on
+    entity_id: light.couch
+  - service: homeassistant.turn_on
+    entity_id: light.lightstring
+  initial_state: true
+  mode: single
+  max: 2
+- id: 3cea39e5f9164e74b34a77bbe484e502
+  alias: Livingroom switch off
+  trigger:
+  - platform: state
+    entity_id: light.cabinet
+    to: 'off'
+    from: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_switch
+    state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: light.booglamp
+  - service: homeassistant.turn_off
+    entity_id: light.couch
+  - service: homeassistant.turn_off
+    entity_id: light.lightstring
+  initial_state: true
+  mode: single
+  max: 2
+- id: '1576074519161'
+  alias: Notify I am home Tado
+  description: ''
+  trigger:
+  - entity_id: device_tracker.joost
+    from: not_home
+    platform: state
+    to: home
+  condition: []
+  action:
+  - data:
+      message: Welcome home! (Tado)
+    service: notify.notify
+  mode: single
+- id: c07024d9fbb64c9688bdc65ca25fe085
+  alias: Notify I am home App
+  description: ''
+  trigger:
+  - entity_id: person.yoyoost
+    from: not_home
+    platform: state
+    to: home
+  condition: []
+  action:
+  - data:
+      message: Welcome home! (Person)
+    service: notify.html5
+  - service: notify.notify
+    data:
+      message: Welcome home! (Person)
+  mode: single
+- id: 2a4b6e0c22434347ac20db22d116fc53
+  alias: All lights off boolean
+  trigger:
+  - platform: time
+    at: 07:00:00
+  - platform: time
+    at: '23:55:05'
+  - platform: time
+    at: 00:55:05
+  - platform: time
+    at: 01:55:05
+  condition:
+  - condition: state
+    entity_id: input_boolean.all_lights_off
+    state: 'on'
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.all_lights_automation
+  mode: single
+- id: bc4042f1efa949088cd4fd60df2bbdf9
+  alias: All lights off notification response off
+  trigger:
+  - platform: event
+    event_type: html5_notification.clicked
+    event_data:
+      action: button1
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: button1
+  condition:
+  - condition: state
+    entity_id: input_boolean.all_lights_off
+    state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    data: {}
+    entity_id: group.all_lights
+  mode: single
+- id: 685d88f6cea848f2a93d87f506550d3f
+  alias: All lights off notification
+  trigger:
+  - platform: time
+    at: '23:30:00'
+  - platform: time
+    at: 00:30:00
+  - platform: time
+    at: 01:30:00
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: input_boolean.all_lights_off
+      state: 'on'
+    - condition: state
+      state: 'on'
+      entity_id: input_boolean.all_lights_automation
+    - condition: state
+      entity_id: group.all_lights
+      state: 'on'
+  action:
+  - service: notify.notify
+    data:
+      message: All lights off?
+      data:
+        actions:
+        - action: button1
+          title: 'Yes'
+          icon: mdi:tooltip-check
+        - action: button2
+          title: 'No'
+          icon: mdi:tooltip-remove
+  mode: single
+  variables:
+    lights_off: "{% set domain = 'light' %} {% set state = 'on' %} {{ states[domain]\
+      \ |\n      selectattr('state','eq', state) | list | count > 0 }}\n"
+- id: '1576593947693'
+  alias: Turn off the toilet light after 10 minutes
+  description: ''
+  trigger:
+  - entity_id: light.toilet
+    for: 10 minutes
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.toilet_light
+    state: 'on'
+  action:
+  - device_id: 4089defa4b7e4819901aa7ab9110b7c7
+    domain: light
+    entity_id: light.toilet
+    type: turn_off
+- id: 8635b1c2dc1c469a851fddc539cbc9e6
+  alias: Warn when batteries are low
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.s9_joost_battery_level
+    below: '10'
+  - platform: numeric_state
+    entity_id: sensor.oo_bijkeuken
+    below: '15'
+  - platform: numeric_state
+    entity_id: sensor.oo_gang
+    below: '15'
+  - platform: numeric_state
+    entity_id: sensor.oo_toilet
+    below: '15'
+  - platform: numeric_state
+    entity_id: sensor.ms_toilet
+    below: '15'
+  - platform: numeric_state
+    entity_id: sensor.rc_keuken
+    below: '15'
+  action:
+  - service: notify.notify
+    data:
+      title: Battery Low
+      message: Replace batteries of {{ trigger.to_state.name|default("unknown") }}
+  mode: single
+- id: '1606128331123'
+  alias: Turn on outside lights
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.outside
+  - service: light.turn_on
+    data: {}
+    entity_id: light.tv_switch_2
+  mode: single
+- id: '1606484773077'
+  alias: Run script on startup
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: script.create_every_light_group
+    data: {}
+    entity_id: script.create_every_light_group
+  mode: single
+- id: '1608667270766'
+  alias: Shed switch off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.bijkeuken
+    to: 'off'
+    from: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.shed_light
+    state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: light.shed
+  mode: single
+  initial_state: true
+  max: 2
+- id: '1608667432807'
+  alias: Shed switch on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.bijkeuken
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.shed_light
+    state: 'on'
+  action:
+  - service: homeassistant.turn_on
+    entity_id: light.shed
+  mode: single
+  initial_state: true
+  max: 2
+- id: '1609331269123'
+  alias: All lights off notification response on
+  description: ''
+  trigger:
+  - platform: event
+    event_type: html5_notification.clicked
+    event_data:
+      action: button2
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: button2
+  condition:
+  - condition: state
+    entity_id: input_boolean.all_lights_off
+    state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    data: {}
+    entity_id: input_boolean.all_lights_automation
+  mode: single
+- id: '1609331542523'
+  alias: Vacation turn on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.vacation_light
+    to: 'on'
+    from: 'off'
+  condition: []
+  action:
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.all_lights_off
+  mode: single
+  initial_state: true
+  max: 2
+- id: '1609331647201'
+  alias: Vacation turn off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.vacation_light
+    to: 'off'
+    from: 'on'
+  condition: []
+  action:
+  - service: homeassistant.turn_on
+    entity_id: input_boolean.all_lights_off
+    data: {}
+  mode: single
+  initial_state: true
+  max: 2
+- id: '1611082898685'
+  alias: Check IKEA Gateway
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.gang
+    to: unavailable
+    for: 00:05:00
+  condition: []
+  action:
+  - service: rest_command.reload_ikea
+    data: {}
+  mode: single
+- id: '1612024708583'
+  alias: Living room switch on 2
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.booglamp
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_switch
+    state: 'on'
+  action:
+  - service: homeassistant.turn_on
+    entity_id: group.living_room
+  mode: single
+  initial_state: true
+  max: 2
+- id: '1612024805492'
+  alias: Living room switch off 2
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.booglamp
+    to: 'off'
+    from: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.living_room_switch
+    state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: group.living_room
+  mode: single
+  initial_state: true
+  max: 2
+- id: '1614938807254'
+  alias: Trashbin notification
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:00:00'
+  condition:
+  - condition: template
+    value_template: '{{ states(''sensor.afvalinfo_tomorrow'') != ''none'' }}'
+  action:
+  - service: notify.notify
+    data:
+      message: 'Put out the trashbin: {{ states.sensor.afvalinfo_tomorrow.state }}'
+      title: '{{ states.sensor.afvalinfo_tomorrow.state }}'
+  mode: single
+- id: '1616670861647'
+  alias: Heating notification
+  description: ''
+  trigger:
+  - type: value
+    platform: device
+    device_id: 652f016eff77d9caa4856946e78d4d00
+    entity_id: sensor.keuken_heating
+    domain: sensor
+    above: 25
+    below: 101
+    for:
+      hours: 0
+      minutes: 45
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - service: notify.notify
+    data:
+      message: Verwarming keuken
+      title: Verwarming keuken staat langer dan 45 min aan voor meer dan 25%
+  mode: single

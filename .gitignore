@@ -1,0 +1,14 @@
+/*
+!.gitignore
+!*.yaml
+!*.yml
+!*.md
+!scripts/
+!themes/
+!custom_components/
+!LICENSE
+!gitupdate.sh
+secrets.yaml
+customize.yaml
+known_devices.yaml
+lovelace.yaml

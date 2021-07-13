@@ -1,0 +1,428 @@
+- platform: darksky
+  api_key: !secret darksky_api
+  monitored_conditions:
+    - summary
+#    - precip_type
+#    - precip_intensity
+#    - precip_probability
+    - temperature
+    - apparent_temperature
+    - dew_point
+    - wind_speed
+    - wind_bearing
+    - icon
+    - humidity
+    - pressure
+    - visibility
+
+#- platform: buienradar
+##  latitude: !secret buienradar_latitude
+##  longitude: !secret buienradar_longitude
+#  monitored_conditions:
+#    - symbol
+#    - temperature
+#    - precipitation
+#    - precipitation_forecast_average
+#    - precipitation_forecast_total
+#    - windspeed
+#    - winddirection
+#    - humidity
+#    - pressure
+#    - rainchance_1d
+#    - rainchance_2d
+#    - rainchance_3d
+#    - rain_1d
+#    - rain_2d
+#    - rain_3d
+#    - temperature_1d
+#    - temperature_2d
+#    - temperature_3d
+
+- platform: time_date
+  display_options:
+    - time
+
+#- platform: google_travel_time
+#  name: Thuis naar Werk (auto)
+#  api_key: !secret google_api
+#  origin: !secret thuis_location
+#  destination: !secret werk_location
+
+#- platform: google_travel_time
+#  name: Werk naar Thuis (auto)
+#  api_key: !secret google_api
+#  origin: !secret werk_location
+#  destination: !secret thuis_location
+
+#- platform: google_travel_time
+#  name: Thuis naar Werk (bus)
+#  api_key: !secret google_api
+#  origin: !secret thuis_location
+#  destination: !secret werk_location
+#  options:
+#    mode: transit
+
+#- platform: google_travel_time
+#  name: Werk naar Thuis (bus)
+#  api_key: !secret google_api
+#  origin: !secret werk_location
+#  destination: !secret thuis_location
+#  options:
+#    mode: transit
+
+#- platform: google_travel_time
+#  name: Thuis naar Ouders (auto)
+#  api_key: !secret google_api
+#  origin: !secret thuis_location
+#  destination: !secret ouders_location
+
+#- platform: google_travel_time
+#  name: Ouders naar Thuis (auto)
+#  api_key: !secret google_api
+#  origin: !secret ouders_location
+#  destination: !secret thuis_location
+
+- platform: steam_online
+  api_key: !secret steam_api_key
+  accounts:
+    - !secret steam_account_id
+
+#- platform: nzbget
+#  host: !secret nzbget_ip
+#  port: !secret nzbget_port
+#  username: !secret nzbget_username
+#  password: !secret nzbget_password
+#  monitored_variables:
+#    - article_cache
+#    - download_rate
+#    - download_paused
+#    - download_size
+#    - remaining_size
+#    - free_disk_space
+
+#- platform: transmission
+#    host: !secret transmission_ip
+#    port: !secret transmission_port
+#    username: !secret transmission_username
+#    password: !secret transmission_password
+#    monitored_variables:
+#      - current_status
+#      - download_speed
+#      - upload_speed
+#      - active_torrents
+
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /
+    - type: memory_free
+    - type: processor_use
+    - type: network_in
+      arg: eth0
+    - type: network_out
+      arg: eth0
+    - type: last_boot
+
+#- platform: pi_hole
+#  host: !secret pihole_host
+#  monitored_conditions:
+#    - ads_blocked_today
+#    - ads_percentage_today
+#    - dns_queries_today
+#    - domains_being_blocked
+#    - queries_cached
+#    - queries_forwarded
+#    - unique_clients
+#    - unique_domains
+#    - clients_ever_seen
+
+#- platform: cert_expiry
+#  host: !secret domain2_host
+#  port: 80
+#  name: !secret domain2_name
+
+- platform: command_line
+  name: !secret domain1_name
+  unit_of_measurement: days
+  scan_interval: 86400
+  command: !secret domain1_command
+
+- platform: command_line
+  name: !secret domain2_name
+  unit_of_measurement: days
+  scan_interval: 86400
+  command: !secret domain2_command
+
+#- platform: glances
+#  host: !secret glances_ip
+#  resources:
+#    - 'disk_use_percent'
+#    - 'disk_use'
+#    - 'disk_free'
+#    - 'memory_use_percent'
+#    - 'memory_use'
+#    - 'memory_free'
+#    - 'swap_use_percent'
+#    - 'swap_use'
+#    - 'swap_free'
+#    - 'processor_load'
+#    - 'process_running'
+#    - 'process_total'
+#    - 'process_thread'
+#    - 'process_sleeping'
+##    - 'uptime'
+##    - 'cpu_temp'
+
+#- platform: rest
+#  resource: !secret glances_rest
+#  name: Uptime
+#  value_template: '{{ value_json }}'
+##  unit_of_measurement: ''
+
+- platform: magicseaweed
+  api_key: !secret magicseaweed_api_key
+  spot_id: !secret magicseaweed_spot_id
+  units: eu
+  monitored_conditions:
+    - swell_forecast
+    - min_breaking_swell
+    - max_breaking_swell
+
+#- platform: dsmr
+#  port: /dev/ttyUSB0
+#  dsmr_version: 5
+
+#- platform: filter
+#  name: "<replace by your new sensor name>"
+#  entity_id: sensor.power_consumption
+#  filters:
+#  - filter: throttle
+#  - window_size: 10
+
+- platform: filter
+  name: "Stroomverbruik"
+  entity_id: sensor.power_consumption
+  filters:
+    - filter: time_throttle
+      window_size: 00:01
+
+- platform: filter
+  name: "Stroomverbruik laag tarief"
+  entity_id: sensor.energy_consumption_tarif_1
+  filters:
+    - filter: time_throttle
+      window_size: 00:01
+
+- platform: filter
+  name: "Stroomverbruik normaal tarief"
+  entity_id: sensor.energy_consumption_tarif_2
+  filters:
+    - filter: time_throttle
+      window_size: 00:01
+
+- platform: filter
+  name: "Gasverbruik"
+  entity_id: sensor.gas_consumption
+  filters:
+    - filter: time_throttle
+      window_size: 00:01
+
+#- platform: filter
+#  name: "Gasverbruik per uur"
+#  entity_id: sensor.hourly_gas_consumption
+#  filters:
+#    - filter: time_throttle
+#      window_size: 00:01
+
+- platform: derivative
+  name: gas_consumption_5m
+  source: sensor.gas_consumption
+  unit_time: h
+  time_window: "00:05:00"
+
+- platform: filter
+  name: "Tarief"
+  entity_id: sensor.power_tariff
+  filters:
+    - filter: time_throttle
+      window_size: 00:01
+
+- platform: filter
+  name: "Processor load"
+  entity_id: sensor.processor_use
+  filters:
+    - filter: time_throttle
+      window_size: 00:01
+
+- platform: filter
+  name: "Processor load (percent)"
+  entity_id: sensor.processor_use_percent
+  filters:
+    - filter: time_throttle
+      window_size: 00:01
+
+- platform: filter
+  name: "Memory unused"
+  entity_id: sensor.memory_free
+  filters:
+    - filter: time_throttle
+      window_size: 00:05
+
+- platform: filter
+  name: "Network in"
+  entity_id: sensor.network_in_eth0
+  filters:
+    - filter: time_throttle
+      window_size: 00:05
+
+- platform: filter
+  name: "Network out"
+  entity_id: sensor.network_out_eth0
+  filters:
+    - filter: time_throttle
+      window_size: 00:05
+
+#- platform: rpi_power
+
+- platform: command_line
+  name: PiHole Status
+  command: !secret pihole_cmd_status
+  value_template: >
+    {{ value_json.status }}
+
+- platform: mqtt
+  name: "Energy Today TV"
+  state_topic: "tele/tv/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Today"] }}'
+  unit_of_measurement: "kWh"
+- platform: mqtt
+  name: "Power TV"
+  state_topic: "tele/tv/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Power"] }}'
+  unit_of_measurement: "W"
+- platform: mqtt
+  name: "Voltage TV"
+  state_topic: "tele/tv/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+  unit_of_measurement: "V"
+- platform: mqtt
+  name: "Current TV"
+  state_topic: "tele/tv/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Current"] }}'
+  unit_of_measurement: "A"
+
+
+- platform: mqtt
+  name: "Energy Today Washingmachine"
+  state_topic: "tele/washingmachine/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Today"] }}'
+  unit_of_measurement: "kWh"
+- platform: mqtt
+  name: "Power Washingmachine"
+  state_topic: "tele/washingmachine/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Power"] }}'
+  unit_of_measurement: "W"
+- platform: mqtt
+  name: "Voltage Washingmachine"
+  state_topic: "tele/washingmachine/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+  unit_of_measurement: "V"
+- platform: mqtt
+  name: "Current Washingmachine"
+  state_topic: "tele/washingmachine/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Current"] }}'
+  unit_of_measurement: "A"
+
+- platform: mqtt
+  name: "Energy Today Outside"
+  state_topic: "tele/outside/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Today"] }}'
+  unit_of_measurement: "kWh"
+- platform: mqtt
+  name: "Power Outside"
+  state_topic: "tele/outside/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Power"] }}'
+  unit_of_measurement: "W"
+- platform: mqtt
+  name: "Voltage Outside"
+  state_topic: "tele/outside/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+  unit_of_measurement: "V"
+- platform: mqtt
+  name: "Current Outside"
+  state_topic: "tele/outside/SENSOR"
+  value_template: '{{ value_json["ENERGY"]["Current"] }}'
+  unit_of_measurement: "A"
+
+- platform: sql
+  queries:
+    - name: "HomeAssistant DB Size"
+      query: 'SELECT ROUND(page_count * page_size / 1024 / 1024, 1) as size FROM pragma_page_count(), pragma_page_size();'
+      column: 'size'
+      unit_of_measurement: 'MiB'
+
+- platform: filesize
+  file_paths:
+    - /config/home-assistant.log
+
+- platform: sql
+  db_url: sqlite:////config/pihole/gravity.db
+  queries:
+    - name: "Pi-Hole gravity DB Size"
+      query: 'SELECT ROUND(page_count * page_size / 1024 / 1024, 1) as size FROM pragma_page_count(), pragma_page_size();'
+      column: 'size'
+      unit_of_measurement: 'MiB'
+
+- platform: sql
+  db_url: sqlite:////config/pihole/pihole-FTL.db
+  queries:
+    - name: "Pi-Hole query DB Size"
+      query: 'SELECT ROUND(page_count * page_size / 1024 / 1024, 1) as size FROM pragma_page_count(), pragma_page_size();'
+      column: 'size'
+      unit_of_measurement: 'MiB'
+
+- platform: fritzbox_netmonitor
+
+#- platform: afvalwijzer
+#  provider: mijnafvalwijzer
+#  postal_code: !secret afvalwijzer_postal_code
+#  street_number:  !secret afvalwijzer_street
+#  suffix: !secret afvalwijzer_suffix
+
+- platform: afvalinfo
+  id: ''
+  resources:
+    - gft
+    - restafval
+#    - pbd
+#    - papier
+#    - kerstboom
+#    - textiel
+    - trash_type_today
+    - trash_type_tomorrow
+  location: !secret afvalwijzer_municipality
+  postcode: !secret afvalwijzer_postal_code
+  streetnumber: !secret afvalwijzer_street
+  streetnumbersuffix: !secret afvalwijzer_suffix
+  dateformat: '%d-%m-%Y'
+  locale: 'nl'
+  timespanindays: 365
+
+- platform: template
+  sensors:
+    afvalinfo_next_trash_type_and_date:
+      value_template: >
+        {% set ns = namespace(minimum=365) %}
+        {% set list = ['gft', 'kerstboom', 'papier', 'pbd', 'restafval','textiel'] %}
+        {%- for l in list %}
+        {%- set days = state_attr('sensor.afvalinfo_' ~l, 'days_until_collection_date')%}
+        {%- if days != None and days < ns.minimum %}
+        {%- set ns.minimum = days %}
+        {%- endif %}
+        {%- endfor %}
+        {%- for l in list %}
+        {%- set days = state_attr('sensor.afvalinfo_' ~l, 'days_until_collection_date')%}
+        {%- if days == ns.minimum %}
+        {{l}} : {{ states('sensor.afvalinfo_' ~l) }}
+        {%- endif %}
+        {%- endfor %}

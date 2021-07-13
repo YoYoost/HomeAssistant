@@ -1,0 +1,15 @@
+enable_pihole:
+  alias: Enable PiHole
+  sequence:
+    service: shell_command.pihole_enable
+create_every_light_group:
+  alias: Create every light group
+  sequence:
+  - service: group.set
+    data_template:
+      object_id: all_lights
+      entities: '{{ states.light |  map(attribute=''entity_id'') | join('','') }}
+
+        '
+  mode: single
+  description: Create every light group
